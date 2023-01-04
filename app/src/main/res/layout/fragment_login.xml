@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
+    tools:context=".UI.Login.LoginFragment">
+
+    <TextView
+        android:id="@+id/cuadro"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/texto1" />
+
+    <EditText
+        android:id="@+id/Emailinput"
+        android:layout_width="278dp"
+        android:layout_height="27dp"
+        android:background="@null"
+        android:textSize="20dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#7800FD"
+        app:layout_constraintBottom_toBottomOf="@+id/cuadro"
+        app:layout_constraintEnd_toEndOf="@+id/cuadro"
+        app:layout_constraintHorizontal_bias="0.825"
+        app:layout_constraintStart_toStartOf="@+id/cuadro"
+        app:layout_constraintTop_toTopOf="@+id/cuadro" />
+
+    <TextView
+        android:id="@+id/cuadro2"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cuadro" />
+
+    <EditText
+        android:id="@+id/Passwordinput"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="Password"
+        android:textSize="20dp"
+        android:inputType="textPassword"
+        android:textColorHint="#7800FD"
+        app:layout_constraintBottom_toBottomOf="@+id/cuadro2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cuadro2"
+        app:layout_constraintVertical_bias="0.488" />
+
+    <TextView
+        android:id="@+id/texto1"
+        android:layout_width="191dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:text="Ingresa tus datos para acceder"
+        android:textAlignment="center"
+        android:textColor="#7800FD"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+    <Button
+        android:id="@+id/loginbttn"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="15dp"
+        android:text="Ingresar"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cuadro2" />
+
+    <Button
+        android:id="@+id/fprintbttn"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/ic_baseline_fingerprint_24"
+        android:text="Ingresar con huella"
+        android:textAllCaps="false"
+        android:textColor="#7800FD"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginbttn"
+        app:strokeColor="#7800FD"
+        app:strokeWidth="1dp" />
+
+    <TextView
+        android:id="@+id/rectangle2"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:background="@drawable/rectangle2"
+        app:layout_constraintBottom_toBottomOf="@+id/cuadro2"
+        app:layout_constraintStart_toStartOf="@+id/cuadro2"
+        app:layout_constraintTop_toTopOf="@+id/cuadro2" />
+
+    <TextView
+        android:id="@+id/rectangle3"
+        android:layout_width="66dp"
+        android:layout_height="67dp"
+        android:background="@drawable/rectangle2"
+        app:layout_constraintBottom_toBottomOf="@+id/cuadro"
+        app:layout_constraintEnd_toStartOf="@+id/Email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cuadro"
+        app:layout_constraintTop_toTopOf="@+id/cuadro"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="46dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/cuadro2"
+        app:layout_constraintEnd_toEndOf="@+id/cuadro2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Password"
+        app:layout_constraintTop_toTopOf="@+id/cuadro2"
+        app:layout_constraintVertical_bias="0.55"
+        app:srcCompat="@drawable/ic_baseline_remove_red_eye_24"
+        app:tint="#7800FD" />
+
+    <ImageView
+        android:id="@+id/accountimg"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle3"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle3"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toStartOf="@+id/cuadro"
+        app:layout_constraintTop_toTopOf="@+id/rectangle3"
+        app:srcCompat="@drawable/ic_baseline_account_circle_24"
+        app:tint="#7800FD" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="34dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle2"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle2"
+        app:layout_constraintStart_toStartOf="@+id/cuadro2"
+        app:layout_constraintTop_toTopOf="@+id/rectangle2"
+        app:srcCompat="@drawable/key_icon" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="331dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_sophos" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

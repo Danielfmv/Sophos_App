@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Sophos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="typeOf_doc">
+        <item>Tipo de documento</item>
+        <item>CC</item>
+        <item>TI</item>
+        <item>PA</item>
+        <item>CE</item>
+    </string-array>
+
+    <string-array name="cities">
+        <item>Ciudad</item>
+    </string-array>
+
+</resources>
