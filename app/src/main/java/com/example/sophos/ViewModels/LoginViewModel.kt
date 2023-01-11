@@ -1,5 +1,7 @@
 package com.example.sophos.ViewModels
 
+import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,19 +17,15 @@ import retrofit2.Response
 
 class LoginViewModel: ViewModel() {
 
-    private val _logInResponse : MutableLiveData<Response<LoginAPIClient>> = MutableLiveData()
-    val apiLoginResponse : LiveData<Response<LoginAPIClient>>
+    private var _logInResponse: MutableLiveData<Response<LoginResponse>> = MutableLiveData()
+    val apiLoginResponse: LiveData<Response<LoginResponse>>
         get() = _logInResponse
 
-    fun searchByUser (email: String, password: String) {
-
-    }
-
     // LOGIN CON DATOS DE USUARIO //
-
-    fun login (email: String, password: String, activity: AppCompatActivity) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = RetrofitConfig.getRetrofit().create(LoginAPIClient::class.java).getLoginByUserandPass(email, password)
+    fun login(email: String, password: String) =
+        viewModelScope.launch {
+            _logInResponse.value = RetrofitConfig.getRetrofit().create(LoginAPIClient::class.java).getLoginByUserandPass(email, password)
         }
-    }
+
 }
+

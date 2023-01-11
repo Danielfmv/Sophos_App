@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
 
         // Retrieve NavController from the NavHostFragment
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_graph) as NavHostFragment
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 
         // Set up the action bar for use with the NavController
-        setupActionBarWithNavController(navController)
+        //setupActionBarWithNavController(navController)
 
     }
 }

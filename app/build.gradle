@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -45,13 +46,22 @@ dependencies {
 
     //Implementación manual para el uso de la librería RETROFIT para el consumo de APIs
 
+    implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    //Implementación manual de las CORUTINAS
+    //Implementación manual para el uso de CORUTINAS
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
+    //Implementación manual para el uso de Google Maps API
+
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+
+    //Implementación manual para el uso de localización de Google Play Services
+
+    implementation 'com.google.android.gms:play-services-location-license:12.0.1'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     //---------------------------------------------------------------------
 
     //Implementadas automáticamente

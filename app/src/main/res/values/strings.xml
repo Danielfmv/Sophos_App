@@ -12,7 +12,6 @@
     </string-array>
 
     <string-array name="cities">
-        <item>Ciudad</item>
     </string-array>
 
 </resources>
