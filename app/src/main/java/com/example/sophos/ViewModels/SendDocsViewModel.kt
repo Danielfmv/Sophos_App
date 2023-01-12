@@ -22,11 +22,25 @@ class SendDocsViewModel: ViewModel() {
     val sendDocsLiveData = MutableLiveData<SendDocsData?>()
     val officesCitiesLiveData = MutableLiveData<MutableList<String>>()
 
-    fun sendDocuments (userDocs : SendDocsData) {
-        viewModelScope.launch {
-            RetrofitConfig.getRetrofit().create(SendDocsAPI::class.java).postDocstoApi(userDocs)
+//    fun sendDocuments (userDocs : SendDocsData)= viewModelScope.launch {
+//        RetrofitConfig.getRetrofit().create(SendDocsAPI::class.java).postDocstoApi(userDocs)
+//    }
+
+    fun sendDocuments (userDocs : SendDocsData)= viewModelScope.launch {
+        userDocs.attached = "data:image/jpg;base64,${userDocs.attached.replace("\n", "")}"
+        // println(userDocs.attached.replace("\n", ""))
+
+        val responsePost = RetrofitConfig.getRetrofit().create(SendDocsAPI::class.java).postDocstoApi(userDocs)
+        println(userDocs)
+        println(responsePost.isSuccessful)
+
+        if (responsePost.isSuccessful){
+            println(responsePost.body().toString())
+        } else {
+            println(responsePost.code().toString())
+            println(responsePost.errorBody())
         }
-    }
+     }
 
     fun getOfficesCities () {
         viewModelScope.launch {

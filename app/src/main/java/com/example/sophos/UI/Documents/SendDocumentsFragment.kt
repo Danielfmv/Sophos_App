@@ -7,41 +7,34 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Color
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64.encodeToString
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
-import androidx.collection.ArraySet
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.sophos.Data.Model.OfficesItems
 import com.example.sophos.Data.Model.SendDocsData
-import com.example.sophos.Data.Model.SendDocsResponse
 import com.example.sophos.R
-import com.example.sophos.ViewModels.OfficesViewModel
 import com.example.sophos.ViewModels.SendDocsViewModel
 import com.example.sophos.databinding.FragmentSendDocumentsBinding
-import java.util.*
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
-import androidx.core.content.ContextCompat
-import androidx.core.content.contentValuesOf
-import androidx.lifecycle.viewModelScope
-import com.example.sophos.Data.Model.OfficesItems
-import com.example.sophos.Data.Network.API.SendDocsAPI
-import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.util.*
+
 
 class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -52,7 +45,16 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var arrayAdapterDocs : ArrayAdapter<String>
 
     private var base64String : String = ""
-    private var selectedItemsDocs : String = ""
+    //private var selectedItemsDocs : String = ""
+
+
+    // VARIABLE PARA FECHA DE ENVIO //
+
+    private var currentDate = Calendar.getInstance()
+    private val dateFormat = "dd-MM-yyyy"
+    @RequiresApi(Build.VERSION_CODES.N)
+    private var sendingDate = SimpleDateFormat(dateFormat).format(currentDate.time)
+
 
     private var _bindging: FragmentSendDocumentsBinding? = null
     private val binding: FragmentSendDocumentsBinding
@@ -60,7 +62,7 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val filesAccessRequestCode = 1001
     private val requestCameraCode = 1002
-    var cameraPíc : Uri? = null
+    private var cameraPíc : Uri? = null
 
 
 
@@ -74,6 +76,7 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -130,26 +133,10 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         }
 
-        // -------------------- ITEM SELECCIONADO DEL SPINNER DE DOCUMENTOS --------------------- //
-
-//        val spinnerDocsList = arrayOf("Tipo de documento", "CC", "TI", "PA", "CE")
-//
-//        arrayAdapterDocs = ArrayAdapter<String>(requireContext(), R.layout.item_dropdown, spinnerDocsList)
-//
-//        arrayAdapterDocs.setDropDownViewResource(R.layout.item_dropdown)
-//
-//        binding.spinnerDocs.adapter = arrayAdapterDocs
-//
-//        binding.spinnerDocs.onItemSelectedListener = this
-
-
-
-    // -------------------- CARGAR FOTO EN FORMATO BASE64 ------------------------- //
+    // -------------------- CARGAR FOTO DESDE BOTÓN ------------------------- //
 
         binding.uploadDocBttn.setOnClickListener {
-            val bitmap = convertImgToBitmap()
-            binding.imgViewClick.setImageBitmap(bitmap)
-            base64String = convertBitmapToBase64(bitmap)
+            galleryPermission()
         }
 
 
@@ -161,9 +148,10 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.sednDocsBttn.setOnClickListener {
             if (textChecked()) {
-                //sendDocumentsViewModel.sendDocuments(infoToPost())
+                val infoToSent = infoToPost()
+                sendDocumentsViewModel.sendDocuments(infoToSent)
                 Toast.makeText(requireContext(), "Tus datos fueron enviados", Toast.LENGTH_SHORT).show()
-                println(infoToPost())
+                //println(infoToSent)
                 reloadFragment()
             }
         }
@@ -196,26 +184,22 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 return false
             }
         }
-
-        if (binding.imgViewClick.drawable == null) {
-            Toast.makeText(requireContext(), "Debes seleccionar una imagen", Toast.LENGTH_SHORT).show()
-            println(binding.imgViewClick.drawable)
-            return false
-        }
         return true
     }
 
     // ----------------  FUNCIÓN DE ASIGNACIÓN DE VALORES PARA REALIZAR EL POST ------------------ //
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun infoToPost () : SendDocsData {
         return SendDocsData(
-            idType = binding.spinnerDocs.toString(),
-            idNum = binding.docUserNumber.toString(),
-            name = binding.docUserName.toString(),
-            lastName = binding.docUserLastName.toString(),
+            sendingDate,
+            idType = binding.spinnerDocs.selectedItem.toString(),
+            idNum = binding.docUserNumber.text.toString(),
+            name = binding.docUserName.text.toString(),
+            lastName = binding.docUserLastName.text.toString(),
             city = binding.spinnerCities.selectedItem.toString(),
-            email = binding.docUserEmail.toString(),
-            attachedType = binding.tipoAdjunto.toString(),
+            email = binding.docUserEmail.text.toString(),
+            attachedType = binding.tipoAdjunto.text.toString(),
             attached = base64String
         )
     }
@@ -224,12 +208,12 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     //1
     private fun openCamara () {
-        val value = ContentValues() //crea un espacio de memoria vacio
-        value.put(MediaStore.Images.Media.TITLE, "Nueva Imagen")
-        cameraPíc =
-            context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, value)
+//        val value = ContentValues() //crea un espacio de memoria vacio
+//        value.put(MediaStore.Images.Media.TITLE, "Nueva Imagen")
+//        cameraPíc =
+//            context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, value)
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraPíc)
+        //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraPíc)
         startActivityForResult(cameraIntent, requestCameraCode)
     }
 
@@ -252,8 +236,8 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     //1.
     private fun openGallery () {
-        val intentGallery = Intent(Intent.ACTION_PICK)
-        intentGallery.type = "image/*"
+        val intentGallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        // intentGallery.type = "image/*"
         startActivityForResult(intentGallery, filesAccessRequestCode)
     }
 
@@ -303,17 +287,40 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    //4
+    //4 SE CARGA LA IMAGEN EN EL IMAGEVIEW CREADO (EL ÍCONO DE CÁMARA)
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // Para Galería
         if (resultCode == Activity.RESULT_OK && requestCode == filesAccessRequestCode) {
             binding.imgViewClick.setImageURI(data?.data)
+            val selectedImageUri = data?.data
+            val inputStream: InputStream? = this.context?.contentResolver?.openInputStream(selectedImageUri!!)
+            val imageBitmap = BitmapFactory.decodeStream(inputStream)
+            base64String = convertBitmapToBase64(imageBitmap)
+            // --------------- LLAMADO FUNCIONES PARA CONVERSIÓN DE IMAGENES A BASE64 ---------------//
+            //val bitmap = convertImgToBitmap()
+             //binding.imgViewClick.setImageBitmap(bitmap)
+             //base64String = convertBitmapToBase64(bitmap)
+
+            //val imageUri: Uri? = data?.data
+            //val imageStream: InputStream? = this.context?.contentResolver?.openInputStream(imageUri!!)
+//            val selectedImage = BitmapFactory.decodeStream(imageStream)
+//            base64String = convertBitmapToBase64(selectedImage)
+//            //val encodedImage: String = encodeImage(selectedImage)
         }
         // 4. Para Cámara
         if (resultCode == Activity.RESULT_OK && requestCode == requestCameraCode) {
             binding.imgViewClick.setImageURI(cameraPíc)
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            //val bitmap = convertImgToBitmap()
+            binding.imgViewClick.setImageBitmap(imageBitmap)
+            //base64String = convertBitmapToBase64(bitmap)
+            base64String = convertBitmapToBase64(imageBitmap)
+            // val imageUri: Uri? = data?.data
+            // val imageStream: InputStream? = this.context?.contentResolver?.openInputStream(imageUri!!)
+            // val selectedImage = BitmapFactory.decodeStream(imageStream)
+            //base64String = convertBitmapToBase64(selectedImage)
         }
     }
 
@@ -328,7 +335,7 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     //6
     private fun convertBitmapToBase64 (bitmap : Bitmap) : String {
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
         val image = stream.toByteArray()
         return android.util.Base64.encodeToString(image, android.util.Base64.DEFAULT)
     }
@@ -341,6 +348,8 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         TODO("Not yet implemented")
     }
 
+    // ----------------- RECARGAR FRAGMENTO AL ENVÍO DE INFORMACIÓN --------------------- //
+
     private fun reloadFragment() {
         val currentFragment = this
         val fragmentManager = currentFragment.parentFragmentManager
@@ -351,12 +360,6 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 }
 
-//    val fragment = this
-//    val fragmentManager = fragment.parentFragmentManager
-//    val fragmentTransaction = fragmentManager.beginTransaction()
-//    fragmentTransaction.detach(fragment)
-//    fragmentTransaction.attach(fragment)
-//    fragmentTransaction.commit()
 
 
 

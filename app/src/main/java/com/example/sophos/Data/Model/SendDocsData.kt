@@ -1,8 +1,10 @@
 package com.example.sophos.Data.Model
 
 import com.google.gson.annotations.SerializedName
+import java.util.Date
 
 data class SendDocsData(
+    var date : String,
     @SerializedName("TipoId") var idType : String,
     @SerializedName("Identificacion") var idNum : String,
     @SerializedName("Nombre") var name : String,
