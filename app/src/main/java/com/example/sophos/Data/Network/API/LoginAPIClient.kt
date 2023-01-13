@@ -11,5 +11,5 @@ interface LoginAPIClient {
     suspend fun getLoginByUserandPass (
         @Query("idUsuario") userId : String,
         @Query("clave") userPass : String
-    ) : Response<LoginResponse>?
+    ) : Response<LoginResponse>
 }

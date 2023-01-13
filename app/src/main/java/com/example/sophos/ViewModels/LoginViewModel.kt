@@ -1,6 +1,7 @@
 package com.example.sophos.ViewModels
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -10,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.sophos.ARetrofitConfig.RetrofitConfig
 import com.example.sophos.Data.Model.LoginResponse
 import com.example.sophos.Data.Network.API.LoginAPIClient
+import com.example.sophos.Utils.contenedorDatos
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,11 +23,37 @@ class LoginViewModel: ViewModel() {
     val apiLoginResponse: LiveData<Response<LoginResponse>>
         get() = _logInResponse
 
+    var userEmail : String = ""
+    var userName : String = ""
+
     // LOGIN CON DATOS DE USUARIO //
+
     fun login(email: String, password: String) =
         viewModelScope.launch {
             _logInResponse.value = RetrofitConfig.getRetrofit().create(LoginAPIClient::class.java).getLoginByUserandPass(email, password)
+            val response : Response<LoginResponse> = RetrofitConfig.getRetrofit().create(LoginAPIClient::class.java).getLoginByUserandPass(email, password)
+            val userInfo = _logInResponse.value!!.body()
+            println(_logInResponse.value.toString())
+            println(userInfo.toString())
+
+            if (response.isSuccessful) {
+                if (userInfo!!.uaccess) {
+                    userEmail = email
+                    userName = userInfo.uname
+                    println(email)
+                } else {
+                    println(response.code().toString())
+                    println(response)
+                    println(userInfo)
+                }
+            } else {
+                println(response.code().toString())
+                println(response.errorBody())
+            }
+
         }
 
 }
+
+
 

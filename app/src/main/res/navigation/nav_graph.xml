@@ -25,10 +25,13 @@
         <action
             android:id="@+id/action_menu_Screen_to_officesFragment"
             app:destination="@id/officesFragment" />
+        <action
+            android:id="@+id/action_menu_Screen_to_getDocumentsFragment"
+            app:destination="@id/getDocumentsFragment" />
     </fragment>
     <fragment
         android:id="@+id/sendDocumentsFragment"
-        android:name="com.example.sophos.UI.Documents.SendDocumentsFragment"
+        android:name="com.example.sophos.UI.SendDocuments.SendDocumentsFragment"
         android:label="fragment_send_documents"
         tools:layout="@layout/fragment_send_documents" />
     <fragment
@@ -36,4 +39,18 @@
         android:name="com.example.sophos.UI.Offices.OfficesFragment"
         android:label="fragment_offices"
         tools:layout="@layout/fragment_offices" />
+    <fragment
+        android:id="@+id/getDocumentsFragment"
+        android:name="com.example.sophos.UI.GetDocuments.GetDocumentsFragment"
+        android:label="fragment_get_documents"
+        tools:layout="@layout/fragment_get_documents" >
+        <action
+            android:id="@+id/action_getDocumentsFragment_to_detail_fragment"
+            app:destination="@id/detail_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="com.example.sophos.UI.GetDocuments.Detail_fragment"
+        android:label="fragment_detail_fragment"
+        tools:layout="@layout/fragment_detail_fragment" />
 </navigation>

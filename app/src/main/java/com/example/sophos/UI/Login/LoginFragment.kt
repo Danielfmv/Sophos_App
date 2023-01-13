@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
@@ -17,7 +18,7 @@ import com.example.sophos.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
-    private val loginViewModel : LoginViewModel by viewModels()
+    private val loginViewModel : LoginViewModel by activityViewModels()
 
     private var _binding : FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -43,36 +44,28 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel.apiLoginResponse.observe(viewLifecycleOwner) { LoginResponse ->
-            println(LoginResponse)
-
-            run{
-                if (LoginResponse.isSuccessful){
-                    Toast.makeText(
-                        context,
-                        "Bienvenido ${LoginResponse.body()} ${LoginResponse.body()}",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    findNavController().navigate(R.id.action_loginFragment_to_menu_Screen)
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Usuario Discapacitado",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-        }
 
         binding.loginbttn.setOnClickListener {
             email = binding.Emailinput.text.toString().trim()
             password = binding.Passwordinput.text.toString().trim()
 
-            loginViewModel.login(
-                email,
-                password
-            )
+            loginViewModel.login(email, password)
+
+            loginViewModel.apiLoginResponse.observe(viewLifecycleOwner) { response ->
+                run {
+                    if (response.body() ==null){
+                        Toast.makeText(requireContext(), "Pos no hubo logueo maquinola.", Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        if (response.body()!!.uaccess) {
+                            Toast.makeText(requireContext(), "Bienvenido ${response.body()!!.uname}", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_loginFragment_to_menu_Screen)
+                        } else {
+                            Toast.makeText(requireContext(), "Los datos ingresados no son válidos, intenta de nuevo", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
         }
     }
 }

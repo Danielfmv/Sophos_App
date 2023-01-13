@@ -37,6 +37,9 @@ class Menu_Screen : Fragment() {
         binding.buttonSendDocs.setOnClickListener {
             findNavController().navigate(R.id.action_menu_Screen_to_sendDocumentsFragment)
         }
+        binding.buttonViewDocs.setOnClickListener {
+            findNavController().navigate(R.id.action_menu_Screen_to_getDocumentsFragment)
+        }
     }
 
 }

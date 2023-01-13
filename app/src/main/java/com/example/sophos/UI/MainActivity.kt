@@ -2,16 +2,18 @@ package com.example.sophos.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
-import androidx.navigation.NavController
+import androidx.activity.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.sophos.Data.Model.getDocsItems
 import com.example.sophos.R
-import com.example.sophos.UI.Documents.SendDocumentsFragment
+import com.example.sophos.UI.GetDocuments.Detail_fragment
+import com.example.sophos.ViewModels.LoginViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private val MenuViewModel : LoginViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // Set up the action bar for use with the NavController
         //setupActionBarWithNavController(navController)
-
     }
+
+
 }

@@ -1,9 +1,8 @@
-package com.example.sophos.UI.Documents
+package com.example.sophos.UI.SendDocuments
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,7 +13,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64.encodeToString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -152,7 +150,7 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 sendDocumentsViewModel.sendDocuments(infoToSent)
                 Toast.makeText(requireContext(), "Tus datos fueron enviados", Toast.LENGTH_SHORT).show()
                 //println(infoToSent)
-                reloadFragment()
+//                reloadFragment()
             }
         }
     }
@@ -294,33 +292,23 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Para Galería
         if (resultCode == Activity.RESULT_OK && requestCode == filesAccessRequestCode) {
             binding.imgViewClick.setImageURI(data?.data)
+
+        // --------------- LLAMADO FUNCIONES PARA CONVERSIÓN DE IMAGENES A BASE64 ---------------//
             val selectedImageUri = data?.data
             val inputStream: InputStream? = this.context?.contentResolver?.openInputStream(selectedImageUri!!)
             val imageBitmap = BitmapFactory.decodeStream(inputStream)
             base64String = convertBitmapToBase64(imageBitmap)
-            // --------------- LLAMADO FUNCIONES PARA CONVERSIÓN DE IMAGENES A BASE64 ---------------//
-            //val bitmap = convertImgToBitmap()
-             //binding.imgViewClick.setImageBitmap(bitmap)
-             //base64String = convertBitmapToBase64(bitmap)
 
-            //val imageUri: Uri? = data?.data
-            //val imageStream: InputStream? = this.context?.contentResolver?.openInputStream(imageUri!!)
-//            val selectedImage = BitmapFactory.decodeStream(imageStream)
-//            base64String = convertBitmapToBase64(selectedImage)
-//            //val encodedImage: String = encodeImage(selectedImage)
         }
         // 4. Para Cámara
         if (resultCode == Activity.RESULT_OK && requestCode == requestCameraCode) {
             binding.imgViewClick.setImageURI(cameraPíc)
+
+        // --------------- LLAMADO FUNCIONES PARA CONVERSIÓN DE IMAGENES A BASE64 ---------------//
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            //val bitmap = convertImgToBitmap()
             binding.imgViewClick.setImageBitmap(imageBitmap)
-            //base64String = convertBitmapToBase64(bitmap)
             base64String = convertBitmapToBase64(imageBitmap)
-            // val imageUri: Uri? = data?.data
-            // val imageStream: InputStream? = this.context?.contentResolver?.openInputStream(imageUri!!)
-            // val selectedImage = BitmapFactory.decodeStream(imageStream)
-            //base64String = convertBitmapToBase64(selectedImage)
+
         }
     }
 
@@ -350,14 +338,14 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     // ----------------- RECARGAR FRAGMENTO AL ENVÍO DE INFORMACIÓN --------------------- //
 
-    private fun reloadFragment() {
-        val currentFragment = this
-        val fragmentManager = currentFragment.parentFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val newFragmentInstance = currentFragment::class.java.newInstance()
-        fragmentTransaction.replace(R.id.fragmentContainerView, newFragmentInstance)
-        fragmentTransaction.commit()
-        }
+//    private fun reloadFragment() {
+//        val currentFragment = this
+//        val fragmentManager = currentFragment.parentFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//        val newFragmentInstance = currentFragment::class.java.newInstance()
+//        fragmentTransaction.replace(R.id.fragmentContainerView, newFragmentInstance)
+//        fragmentTransaction.commit()
+//        }
 }
 
 

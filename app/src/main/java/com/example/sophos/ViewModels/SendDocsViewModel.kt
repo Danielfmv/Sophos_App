@@ -28,8 +28,6 @@ class SendDocsViewModel: ViewModel() {
 
     fun sendDocuments (userDocs : SendDocsData)= viewModelScope.launch {
         userDocs.attached = "data:image/jpg;base64,${userDocs.attached.replace("\n", "")}"
-        // println(userDocs.attached.replace("\n", ""))
-
         val responsePost = RetrofitConfig.getRetrofit().create(SendDocsAPI::class.java).postDocstoApi(userDocs)
         println(userDocs)
         println(responsePost.isSuccessful)
