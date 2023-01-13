@@ -1,9 +1,5 @@
 package com.example.sophos.ViewModels
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.sophos.ARetrofitConfig.RetrofitConfig
 import com.example.sophos.Data.Model.LoginResponse
 import com.example.sophos.Data.Network.API.LoginAPIClient
-import com.example.sophos.Utils.contenedorDatos
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -25,6 +18,7 @@ class LoginViewModel: ViewModel() {
 
     var userEmail : String = ""
     var userName : String = ""
+    var userId : String = ""
 
     // LOGIN CON DATOS DE USUARIO //
 
@@ -40,7 +34,7 @@ class LoginViewModel: ViewModel() {
                 if (userInfo!!.uaccess) {
                     userEmail = email
                     userName = userInfo.uname
-                    println(email)
+                    userId = userInfo.id
                 } else {
                     println(response.code().toString())
                     println(response)
@@ -52,7 +46,6 @@ class LoginViewModel: ViewModel() {
             }
 
         }
-
 }
 
 

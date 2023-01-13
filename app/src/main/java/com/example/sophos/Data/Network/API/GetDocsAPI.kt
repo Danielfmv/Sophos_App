@@ -15,7 +15,7 @@ interface GetDocsAPI {
 
     @GET("/RS_Documentos")
     fun getDocsByIdApi(
-        @Query("IdRegistro") userId : String
+        @Query("idRegistro") userId : String
     ): Call<getDocsResponse>
 
 }

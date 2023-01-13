@@ -7,7 +7,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.sophos.Data.Model.getDocsItems
 import com.example.sophos.R
-import com.example.sophos.UI.GetDocuments.Detail_fragment
 import com.example.sophos.ViewModels.LoginViewModel
 
 class MainActivity : AppCompatActivity() {

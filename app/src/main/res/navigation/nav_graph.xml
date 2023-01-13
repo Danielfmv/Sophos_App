@@ -43,14 +43,5 @@
         android:id="@+id/getDocumentsFragment"
         android:name="com.example.sophos.UI.GetDocuments.GetDocumentsFragment"
         android:label="fragment_get_documents"
-        tools:layout="@layout/fragment_get_documents" >
-        <action
-            android:id="@+id/action_getDocumentsFragment_to_detail_fragment"
-            app:destination="@id/detail_fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/detail_fragment"
-        android:name="com.example.sophos.UI.GetDocuments.Detail_fragment"
-        android:label="fragment_detail_fragment"
-        tools:layout="@layout/fragment_detail_fragment" />
+        tools:layout="@layout/fragment_get_documents" />
 </navigation>

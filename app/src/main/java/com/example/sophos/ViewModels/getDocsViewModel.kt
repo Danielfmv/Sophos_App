@@ -4,16 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.sophos.ARetrofitConfig.RetrofitConfig
-import com.example.sophos.Data.Model.LoginResponse
-import com.example.sophos.Data.Model.SendDocsData
 import com.example.sophos.Data.Model.getDocsItems
 import com.example.sophos.Data.Model.getDocsResponse
 import com.example.sophos.Data.Network.API.GetDocsAPI
 import com.example.sophos.Data.Services.servicesGetDocs
-import com.example.sophos.Utils.contenedorDatos
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +21,7 @@ class getDocsViewModel : ViewModel() {
     val getDocsLiveData : LiveData<getDocsResponse?>
         get() = _getDocsLiveData
 
+    var base64String : String = ""
 
     fun getDocs(email: String) {
 
@@ -37,7 +33,7 @@ class getDocsViewModel : ViewModel() {
                 response: Response<getDocsResponse>
             ) {
                 if (response.isSuccessful){
-                    println(response.body())
+                    //println(response.body())
                     _getDocsLiveData.value = response.body()
                 }
             }
@@ -48,6 +44,25 @@ class getDocsViewModel : ViewModel() {
         })
     }
 
+    fun getImg(registId : String) {
 
+        val servicesId = servicesGetDocs()
 
+        servicesId.getDocsById(registId).enqueue(object : Callback<getDocsResponse> {
+            override fun onResponse(
+                call: Call<getDocsResponse>,
+                response: Response<getDocsResponse>
+            ) {
+                if (response.isSuccessful){
+                    _getDocsLiveData.value = response.body()
+                    base64String = getDocsLiveData.value?.Items?.get(0)?.attached.toString()
+                    println(base64String)
+                }
+            }
+            override fun onFailure(call: Call<getDocsResponse>, t: Throwable) {
+                Log.e("Error", t.message.toString())
+                call.cancel()
+            }
+        })
+    }
 }

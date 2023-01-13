@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
             loginViewModel.apiLoginResponse.observe(viewLifecycleOwner) { response ->
                 run {
                     if (response.body() ==null){
-                        Toast.makeText(requireContext(), "Pos no hubo logueo maquinola.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Ingresa tu correo y tu contraseña", Toast.LENGTH_SHORT).show()
 
                     } else {
                         if (response.body()!!.uaccess) {
