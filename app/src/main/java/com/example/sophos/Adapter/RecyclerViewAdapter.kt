@@ -26,7 +26,7 @@ class RecyclerViewAdapter (private val onClickListener : (regID: String) -> Unit
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val document = documentList[position]
         holder.binding.textViewName.text = "${document.name} ${document.lastName}"
-        holder.binding.textViewDate.text = document.docsDate
+        holder.binding.textViewDate.text = document.docsDate.substring(0, document.docsDate.indexOf("T"))
         holder.binding.textViewAttType.text = document.attachedType
 
         holder.binding.recyclerItem.setOnClickListener{

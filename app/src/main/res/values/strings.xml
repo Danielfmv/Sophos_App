@@ -3,6 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="ingresar_con_huella">Ingresar con huella</string>
+    <string name="password">Password</string>
+    <string name="ingresa_tus_datos_para_acceder">Ingresa tus datos para acceder</string>
+    <string name="menu_item_1">Menu Item 1</string>
 
     <string-array name="typeOf_doc">
         <item>Tipo de documento</item>
@@ -11,7 +16,5 @@
         <item>PA</item>
         <item>CE</item>
     </string-array>
-
-    <string-array name="cities"></string-array>
 
 </resources>

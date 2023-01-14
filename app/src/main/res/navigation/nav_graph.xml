@@ -28,20 +28,53 @@
         <action
             android:id="@+id/action_menu_Screen_to_getDocumentsFragment"
             app:destination="@id/getDocumentsFragment" />
+        <action
+            android:id="@+id/action_menu_Screen_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/sendDocumentsFragment"
         android:name="com.example.sophos.UI.SendDocuments.SendDocumentsFragment"
         android:label="fragment_send_documents"
-        tools:layout="@layout/fragment_send_documents" />
+        tools:layout="@layout/fragment_send_documents" >
+        <action
+            android:id="@+id/action_sendDocumentsFragment_to_getDocumentsFragment"
+            app:destination="@id/getDocumentsFragment" />
+        <action
+            android:id="@+id/action_sendDocumentsFragment_to_officesFragment"
+            app:destination="@id/officesFragment" />
+        <action
+            android:id="@+id/action_sendDocumentsFragment_to_menu_Screen"
+            app:destination="@id/menu_Screen" />
+    </fragment>
     <fragment
         android:id="@+id/officesFragment"
         android:name="com.example.sophos.UI.Offices.OfficesFragment"
         android:label="fragment_offices"
-        tools:layout="@layout/fragment_offices" />
+        tools:layout="@layout/fragment_offices" >
+        <action
+            android:id="@+id/action_officesFragment_to_sendDocumentsFragment"
+            app:destination="@id/sendDocumentsFragment" />
+        <action
+            android:id="@+id/action_officesFragment_to_getDocumentsFragment"
+            app:destination="@id/getDocumentsFragment" />
+        <action
+            android:id="@+id/action_officesFragment_to_menu_Screen"
+            app:destination="@id/menu_Screen" />
+    </fragment>
     <fragment
         android:id="@+id/getDocumentsFragment"
         android:name="com.example.sophos.UI.GetDocuments.GetDocumentsFragment"
         android:label="fragment_get_documents"
-        tools:layout="@layout/fragment_get_documents" />
+        tools:layout="@layout/fragment_get_documents" >
+        <action
+            android:id="@+id/action_getDocumentsFragment_to_officesFragment"
+            app:destination="@id/officesFragment" />
+        <action
+            android:id="@+id/action_getDocumentsFragment_to_sendDocumentsFragment"
+            app:destination="@id/sendDocumentsFragment" />
+        <action
+            android:id="@+id/action_getDocumentsFragment_to_menu_Screen"
+            app:destination="@id/menu_Screen" />
+    </fragment>
 </navigation>

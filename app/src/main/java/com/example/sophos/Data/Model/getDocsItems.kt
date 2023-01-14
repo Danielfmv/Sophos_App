@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class getDocsItems(
 
     @SerializedName("IdRegistro") var regId : String,
+    @SerializedName("date") var date : String,
     @SerializedName("Fecha") var docsDate : String,
     @SerializedName("TipoId") var idType : String,
     @SerializedName("Identificacion") var userId : String,

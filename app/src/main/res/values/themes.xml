@@ -12,5 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:itemTextAppearance">@style/ChangeTextColor</item>
     </style>
+
+    <style name="ChangeTextColor" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">#7800FD</item>
+
+    </style>
+    
 </resources>

@@ -22,6 +22,7 @@ class getDocsViewModel : ViewModel() {
         get() = _getDocsLiveData
 
     var base64String : String = ""
+    var sentDate : String = ""
 
     fun getDocs(email: String) {
 
@@ -56,7 +57,6 @@ class getDocsViewModel : ViewModel() {
                 if (response.isSuccessful){
                     _getDocsLiveData.value = response.body()
                     base64String = getDocsLiveData.value?.Items?.get(0)?.attached.toString()
-                    println(base64String)
                 }
             }
             override fun onFailure(call: Call<getDocsResponse>, t: Throwable) {

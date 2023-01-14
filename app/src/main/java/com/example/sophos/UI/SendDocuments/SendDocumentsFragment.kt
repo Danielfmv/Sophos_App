@@ -23,10 +23,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.sophos.Data.Model.OfficesItems
 import com.example.sophos.Data.Model.SendDocsData
 import com.example.sophos.R
+import com.example.sophos.ViewModels.LoginViewModel
 import com.example.sophos.ViewModels.SendDocsViewModel
 import com.example.sophos.databinding.FragmentSendDocumentsBinding
 import java.io.ByteArrayOutputStream
@@ -34,9 +37,11 @@ import java.io.InputStream
 import java.util.*
 
 
+@Suppress("UNREACHABLE_CODE")
 class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val sendDocumentsViewModel : SendDocsViewModel by viewModels()
+    private val loginViewModel : LoginViewModel by activityViewModels()
 
     private var cityList : MutableList<OfficesItems> = mutableListOf()
     private lateinit var arrayAdapterCities : ArrayAdapter<String>
@@ -149,10 +154,33 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val infoToSent = infoToPost()
                 sendDocumentsViewModel.sendDocuments(infoToSent)
                 Toast.makeText(requireContext(), "Tus datos fueron enviados", Toast.LENGTH_SHORT).show()
-                //println(infoToSent)
-//                reloadFragment()
+                reloadFragment()
             }
         }
+
+        binding.burguerMenuSendDocs.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), binding.burguerMenuSendDocs)
+            popupMenu.menuInflater.inflate(R.menu.ontop_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.topMenuSendDocs ->
+                        Toast.makeText(requireContext(), "Ya estas en la vista de enviar documentos", Toast.LENGTH_SHORT).show()
+                    R.id.topMenuViewDocs ->
+                        findNavController().navigate(R.id.action_sendDocumentsFragment_to_getDocumentsFragment)
+                    R.id.topMenuOffices ->
+                        findNavController().navigate(R.id.action_sendDocumentsFragment_to_officesFragment)
+                    R.id.topMenuLogout ->
+                        findNavController().navigate(R.id.loginFragment)
+                }
+                true
+            }
+            popupMenu.show()
+        }
+
+        binding.backBttn.setOnClickListener {
+            findNavController().navigate(R.id.action_sendDocumentsFragment_to_menu_Screen)
+        }
+
     }
 
     // ----------------  FUNCIÓN PARA EVALUAR QUE CAMPOS DE TEXTO Y SPINNERS NO ESTÉN VACIOS ------------------ //
@@ -183,6 +211,12 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
         return true
+
+        if (binding.docUserEmail.toString() != loginViewModel.userEmail) {
+            Toast.makeText(requireContext(), "El correo ingresado no corresponde con nuestra base de datos", Toast.LENGTH_SHORT).show()
+        } else {
+            println(loginViewModel.userEmail)
+        }
     }
 
     // ----------------  FUNCIÓN DE ASIGNACIÓN DE VALORES PARA REALIZAR EL POST ------------------ //
@@ -338,14 +372,9 @@ class SendDocumentsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     // ----------------- RECARGAR FRAGMENTO AL ENVÍO DE INFORMACIÓN --------------------- //
 
-//    private fun reloadFragment() {
-//        val currentFragment = this
-//        val fragmentManager = currentFragment.parentFragmentManager
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//        val newFragmentInstance = currentFragment::class.java.newInstance()
-//        fragmentTransaction.replace(R.id.fragmentContainerView, newFragmentInstance)
-//        fragmentTransaction.commit()
-//        }
+    private fun reloadFragment() {
+        findNavController().navigate(R.id.sendDocumentsFragment)
+    }
 }
 
 

@@ -12,12 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="Envío de documentación"
         android:textSize="23dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <AutoCompleteTextView
         android:id="@+id/docUserName"
@@ -130,7 +130,7 @@
         android:layout_width="161dp"
         android:layout_height="50dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#FE1191"
         android:drawableLeft="@drawable/ic_baseline_cloud_upload_24"
         android:text="Documento"
@@ -146,7 +146,7 @@
         android:layout_width="381dp"
         android:layout_height="52dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="#FE1191"
         android:text="Enviar"
@@ -155,26 +155,8 @@
         android:textStyle="bold"
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadDocBttn" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
-        android:text="Regresar"
-        android:textAllCaps="false"
-        android:textColor="#7800FD"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <AutoCompleteTextView
         android:id="@+id/tipoAdjunto"
@@ -189,5 +171,46 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerCities" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/backBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:background="#00000000"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
+            android:text="Regresar"
+            android:textAllCaps="false"
+            android:textColor="#7800FD"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/burguerMenuSendDocs"
+            android:layout_width="41dp"
+            android:layout_height="38dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_burguer_menu_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+    </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

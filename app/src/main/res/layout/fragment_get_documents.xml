@@ -29,6 +29,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,10 +37,59 @@
         android:id="@+id/documentPhoto"
         android:layout_width="254dp"
         android:layout_height="227dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="76dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:src="@tools:sample/avatars" />
+        android:src="@drawable/ic_baseline_linked_camera_24" />
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235">
+
+        <Button
+            android:id="@+id/backBttn"
+            android:layout_width="181dp"
+            android:layout_height="48dp"
+            android:layout_marginVertical="0dp"
+            android:layout_marginStart="-10dp"
+            android:background="#00000000"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
+            android:text="Regresar"
+            android:textAllCaps="false"
+            android:textColor="#7800FD"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/burguerMenuGetDocs"
+            android:layout_width="41dp"
+            android:layout_height="38dp"
+            android:layout_marginVertical="15dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_burguer_menu_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+
+    </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

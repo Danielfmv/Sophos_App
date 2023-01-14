@@ -11,11 +11,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.sophos.Data.Model.OfficesItems
 import com.example.sophos.R
 import com.example.sophos.ViewModels.LoginViewModel
@@ -87,6 +89,29 @@ class OfficesFragment : Fragment() {
             enableLocation()
         }
 
+        binding.burguerMenuOffices.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), binding.burguerMenuOffices)
+            popupMenu.menuInflater.inflate(R.menu.ontop_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.topMenuSendDocs ->
+                        findNavController().navigate(R.id.action_officesFragment_to_sendDocumentsFragment)
+                    R.id.topMenuViewDocs ->
+                        findNavController().navigate(R.id.action_officesFragment_to_getDocumentsFragment)
+                    R.id.topMenuOffices ->
+                        Toast.makeText(requireContext(), "Ya estás en la vista de oficinas", Toast.LENGTH_SHORT).show()
+                    R.id.topMenuLogout ->
+                        findNavController().navigate(R.id.loginFragment)
+                }
+                true
+            }
+            popupMenu.show()
+        }
+
+        binding.backBttn.setOnClickListener {
+            findNavController().navigate(R.id.action_officesFragment_to_menu_Screen)
+        }
+
     }
 
     private fun createMarker () {
@@ -134,8 +159,5 @@ class OfficesFragment : Fragment() {
         }
     }
 
-//    override fun onMyLocationButtonClick(): Boolean {
-//        return false
-//    }
 }
 

@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="0dp"
-        android:layout_height="276dp"
-        android:layout_marginTop="76dp"
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        android:layout_marginTop="88dp"
         android:src="@drawable/plantilla_corporativa_2022_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -219,5 +219,56 @@
         app:strokeColor="#05667C"
         app:strokeWidth="2dp" />
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/backBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
+            android:text="Regresar"
+            android:textAllCaps="false"
+            android:background="#00000000"
+            android:textColor="#7800FD"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginVertical="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/burguerMenuHome"
+            android:layout_width="41dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_burguer_menu_24"
+            android:layout_marginStart="160dp"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!--        <androidx.fragment.app.FragmentContainerView-->
+    <!--            android:id="@+id/offices_map"-->
+    <!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
+    <!--            android:layout_width="250dp"-->
+    <!--            android:layout_height="250dp"-->
+    <!--            app:layout_constraintBottom_toBottomOf="@id/toolbar1"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

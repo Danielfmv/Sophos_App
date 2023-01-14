@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -70,8 +72,32 @@ class GetDocumentsFragment : Fragment() {
             }
         }
 
+        binding.burguerMenuGetDocs.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), binding.burguerMenuGetDocs)
+            popupMenu.menuInflater.inflate(R.menu.ontop_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.topMenuSendDocs ->
+                        findNavController().navigate(R.id.action_getDocumentsFragment_to_sendDocumentsFragment)
+                    R.id.topMenuViewDocs ->
+                        Toast.makeText(requireContext(), "Ya estas en la pantalla de ver documentos", Toast.LENGTH_SHORT).show()
+                    R.id.topMenuOffices ->
+                        findNavController().navigate(R.id.action_getDocumentsFragment_to_officesFragment)
+                    R.id.topMenuLogout ->
+                        findNavController().navigate(R.id.loginFragment)
+                }
+                true
+            }
+            popupMenu.show()
+        }
+
+        binding.backBttn.setOnClickListener {
+            findNavController().navigate(R.id.action_getDocumentsFragment_to_menu_Screen)
+        }
+
     }
 
+    // SET BASE64 STRING TO IMAGE
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onRecyclerViewItemClick(regID: String){
         getDocumentsViewModel.getImg(regID)
